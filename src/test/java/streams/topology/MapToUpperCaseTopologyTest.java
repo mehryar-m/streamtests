@@ -1,4 +1,4 @@
-package streams.toplogy;
+package streams.topology;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
