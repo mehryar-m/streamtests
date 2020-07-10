@@ -1,0 +1,18 @@
+{
+  "type" : "record",
+  "name" : "CustomerRelationship",
+  "namespace" : "com.mehryar.streamtests.customerRelationship",
+  "fields" : [ {
+    "name" : "keyId",
+    "type" : {
+      "type" : "string",
+      "avro.java.string" : "String"
+    }
+  }, {
+    "name" : "accountNumber",
+    "type" : {
+      "type" : "string",
+      "avro.java.string" : "String"
+    }
+  } ]
+}

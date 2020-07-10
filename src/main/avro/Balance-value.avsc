@@ -1,0 +1,15 @@
+{
+  "type" : "record",
+  "name" : "Balance",
+  "namespace" : "com.mehryar.streamtests.balance",
+  "fields" : [ {
+    "name" : "balance",
+    "type" : "float"
+  }, {
+    "name" : "accountNumber",
+    "type" : {
+      "type" : "string",
+      "avro.java.string" : "String"
+    }
+  } ]
+}

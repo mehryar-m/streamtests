@@ -1,0 +1,33 @@
+{"namespace": "com.mehryar.streamtests.account",
+    "type": "record",
+    "name": "Account",
+    "fields": [
+        {
+        "name": "keyId",
+        "type": {
+            "type": "string",
+            "avro.java.string": "String"
+            }
+        },
+        {
+        "name": "name",
+        "type": {
+        "avro.java.string" : "String",
+        "type": "string"
+            }
+        },
+        {
+        "name": "balance",
+        "type": {
+        "type": "float"
+            }
+        },
+        {
+        "name": "accountNumber",
+        "type": {
+        "avro.java.string": "String",
+        "type": "string"
+          }
+        }
+    ]
+}
