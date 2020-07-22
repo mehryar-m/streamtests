@@ -1,20 +1,27 @@
-{"namespace": "com.mehryar.streamtests.augmentedcaccountpreference",
+{"namespace": "com.mehryar.streamtests.entity",
     "type": "record",
-    "name": "RawAccountPreference",
+    "name": "EntityStatusChange",
     "fields": [
         {
-        "name": "account_id",
+        "name": "keyId",
         "type": {
             "type": "string",
             "avro.java.string": "String"
             }
         },
         {
-        "name": "account_preference",
+        "name": "lastUpdateTime",
         "type": {
         "avro.java.string" : "String",
         "type": "string"
             }
+        },
+        {
+        "name": "status",
+        "type": {
+        "avro.java.string": "String",
+        "type": "string"
+          }
         }
     ]
 }

@@ -1,7 +1,7 @@
 direction:
 	echo "use make start_confluent, stop_confluent, start_jaeger, or stop_jaeger"
 
-start_confluent:
+setup:
 	confluent local start --path /Users/mehryaribm/Documents/pnc/confluent-5.5.0
 	docker run -d --name jaeger \
              -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 \
@@ -14,8 +14,10 @@ start_confluent:
              -p 14250:14250 \
              -p 9411:9411 \
              jaegertracing/all-in-one:1.18
+	$(call create_topics_complex_state)
+	$(call register_create_topics_complex_state)
 
-create_topics_complex_state:
+define create_topics_complex_state
 	~/Documents/pnc/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
 		--replication-factor 1 --partitions 2 --topic Account
 	~/Documents/pnc/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
@@ -24,9 +26,11 @@ create_topics_complex_state:
 		--replication-factor 1 --partitions 2 --topic Customer
 	~/Documents/pnc/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
 		--replication-factor 1 --partitions 2 --topic CustomerRelationship
+endef
 
-register_complex_state_schemas:
-## TODO: Need to add the schema stuff here.
+define register_complex_state_schemas
+	gradle registerSchemasTask
+endef
 
 clean:
 	confluent local stop --path /Users/mehryaribm/Documents/pnc/confluent-5.5.0

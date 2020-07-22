@@ -52,14 +52,17 @@ dependencies {
 }
 
 // https://github.com/ImFlog/schema-registry-plugin for examples
+
 registerSchemasTask {
     schemaRegistry {
         url = 'http://localhost:8081'
         register {
-            subject('Account-value', 'src/main/resources/schemas/ComplexState/Account.avsc')
-            subject('Balance-value', 'src/main/resources/schemas/ComplexState/Balance.avsc')
-            subject('Customer-value', 'src/main/resources/schemas/ComplexState/Customer.avsc')
-            subject('CustomerRelationship-value', 'src/main/resources/schemas/ComplexState/CustomerRelationship.avsc')
+            subject('Account-value', 'src/main/resources/schemas/AccountMaintainer/Account.avsc')
+            subject('Balance-value', 'src/main/resources/schemas/AccountMaintainer/Balance.avsc')
+            subject('Customer-value', 'src/main/resources/schemas/AccountMaintainer/Customer.avsc')
+            subject('CustomerRelationship-value', 'src/main/resources/schemas/AccountMaintainer/CustomerRelationship.avsc')
+            subject('Entity-value', 'src/main/resources/schemas/EventStatus/Entity.avsc')
+            subject('EntityStatus-value', 'src/main/resources/schemas/EventStatus/EntityStatusChange.avsc')
         }
     }
 }
@@ -72,12 +75,10 @@ downloadSchemasTask {
             subject('CustomerProfiles-value', 'src/main/avro')
             subject('CustomerAccounts-value', 'src/main/avro')
             subject('AugmentedCustomerPreferences-value', 'src/main/avro')
+            subject('Entity-value', 'src/main/avro')
+            subject('Entity-value', 'src/main/avro')
         }
     }
 }
 
-task produceMockBalance(type: JavaExec) {
-    classpath sourceSets.main.runtimeClasspath
-    main = ""
-}
 

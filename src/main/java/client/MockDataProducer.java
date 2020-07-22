@@ -118,7 +118,6 @@ public class MockDataProducer {
         TracingKafkaProducer<String , Customer> tracingKafkaProducer =
                 new TracingKafkaProducer<String, Customer>(producer, tracerConfig.tracer());
 
-;
         ProducerRecord<String, Customer> customerRecord =
                 new ProducerRecord<>(
                         Topics.CUSTOMER,
@@ -161,9 +160,9 @@ public class MockDataProducer {
     }
 
     boolean produceCustomerRelationship(CustomerRelationship customerRelationship){
-        Producer<String, CustomerRelationship> producer =
-                new KafkaProducer<>(this.properties);
-
+        Producer<String, CustomerRelationship> producer = new KafkaProducer<>(this.properties);
+        TracingKafkaProducer<String , CustomerRelationship> tracingKafkaProducer =
+                new TracingKafkaProducer<String, CustomerRelationship>(producer, tracerConfig.tracer());
         ProducerRecord<String, CustomerRelationship> customerRelationshipProducerRecord =
                 new ProducerRecord<>(
                         Topics.CUSTOMER_RELATIONSHIP,
@@ -171,7 +170,7 @@ public class MockDataProducer {
                         customerRelationship);
 
         try {
-            RecordMetadata metadata = producer.send(customerRelationshipProducerRecord).get();
+            RecordMetadata metadata = tracingKafkaProducer.send(customerRelationshipProducerRecord).get();
             LOG.info("Record sent with key " + " to partition " + metadata.partition()
                     + " with offset " + metadata.offset());
             producer.close();
