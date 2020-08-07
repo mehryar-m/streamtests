@@ -1,0 +1,25 @@
+{
+  "type" : "record",
+  "name" : "Entity",
+  "namespace" : "com.mehryar.streamtests.entity",
+  "fields" : [ {
+    "name" : "keyId",
+    "type" : {
+      "type" : "string",
+      "avro.java.string" : "String"
+    }
+  }, {
+    "name" : "lastUpdateTime",
+    "type" : {
+      "type" : "string",
+      "avro.java.string" : "String"
+    }
+  }, {
+    "name" : "statuses",
+    "type" : {
+      "type" : "map",
+      "values" : "string",
+      "avro.java.string" : "String"
+    }
+  } ]
+}

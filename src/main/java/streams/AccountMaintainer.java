@@ -5,11 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import streams.toplogy.AccountMaintainerTopology;
 
-public class AccountMaintainer extends AbstractStreams{
-    public AccountMaintainer(){
+public class AccountMaintainer extends AbstractStreams {
+    private static final Logger LOG = LoggerFactory.getLogger(streams.AccountMaintainer.class);
+
+    public AccountMaintainer() {
         super("account-maintainer");
     }
-    private static final Logger LOG = LoggerFactory.getLogger(streams.AccountMaintainer.class);
 
     @Override
     public Topology getTopology() {

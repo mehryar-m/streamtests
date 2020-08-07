@@ -1,19 +1,6 @@
 package streams.topology;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.Serde;
-import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.StreamsConfig;
-import org.apache.kafka.streams.Topology;
-import org.apache.kafka.streams.processor.WallclockTimestampExtractor;
 // import org.apache.kafka.test.ProcessorTopologyTestDriver;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Properties;
 
 public class MapToUpperCaseTopologyTest {
 //    private ProcessorTopologyTestDriver topologyTestDriver;

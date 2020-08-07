@@ -26,6 +26,10 @@ define create_topics_complex_state
 		--replication-factor 1 --partitions 2 --topic Customer
 	~/Documents/pnc/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
 		--replication-factor 1 --partitions 2 --topic CustomerRelationship
+	~/Documents/pnc/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
+    		--replication-factor 1 --partitions 2 --topic Entity
+    ~/Documents/pnc/kafka_2.12-2.3.0/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 \
+        		--replication-factor 1 --partitions 2 --topic EntityStatus
 endef
 
 define register_complex_state_schemas

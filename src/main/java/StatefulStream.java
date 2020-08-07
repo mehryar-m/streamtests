@@ -1,6 +1,7 @@
 import client.MockProducerServer;
 import streams.AccountMaintainer;
-public class StatefulStream  {
+
+public class StatefulStream {
 
     public static void main(String[] args) {
 
@@ -11,16 +12,6 @@ public class StatefulStream  {
         AccountMaintainer accountMaintainer = new AccountMaintainer();
         accountMaintainer.getTopology().describe();
         accountMaintainer.start();
-
-//
-//        AugmentedCustomerPreference augmentedCustomerPreference = new AugmentedCustomerPreference();
-//        augmentedCustomerPreference.getTopology().describe();
-//        augmentedCustomerPreference.start();
-
-//        AccountPreferenceRepartition accountPreferenceRepartition = new AccountPreferenceRepartition();
-//        accountPreferenceRepartition.getTopology().describe();
-//
-//        accountPreferenceRepartition.start();
 
     }
 }

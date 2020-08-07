@@ -9,12 +9,14 @@ import com.sun.net.httpserver.HttpServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.Scanner;
 
 
-public class MockProducerServer  {
+public class MockProducerServer {
     private static final Logger LOG = LoggerFactory.getLogger(MockProducerServer.class);
 
     private HttpServer httpServer;
@@ -26,22 +28,22 @@ public class MockProducerServer  {
             LOG.info("Creating the Server at port: " + serverPort);
             this.httpServer = HttpServer.create(new InetSocketAddress(serverPort), 0);
 
-        } catch (IOException io){
+        } catch (IOException io) {
             System.out.println("IO Exception from Server Creation" + io);
         }
         assert httpServer != null;
         setupServer(httpServer);
-        LOG.info("Server Running at: "+ httpServer.getAddress().getHostString() +
+        LOG.info("Server Running at: " + httpServer.getAddress().getHostString() +
                 "and PORT:" + httpServer.getAddress().getPort());
     }
 
-    private void setupServer(HttpServer httpServer){
+    private void setupServer(HttpServer httpServer) {
         assert httpServer != null;
 
         httpServer.createContext("/produce/account-preference", (httpExchange -> {
             LOG.info("REQUEST RECEIVED: " + httpExchange.getRequestMethod() +
                     " " + httpExchange.getRequestURI().getPath());
-            if ("POST".equals(httpExchange.getRequestMethod())){
+            if ("POST".equals(httpExchange.getRequestMethod())) {
                 LOG.info("POST REQUEST");
                 InputStream inputStream = httpExchange.getRequestBody();
                 Boolean success = handleProduce(inputStream, "account-preference");
@@ -54,7 +56,7 @@ public class MockProducerServer  {
         httpServer.createContext("/produce/customer-account", (httpExchange -> {
             LOG.info("REQUEST RECEIVED: " + httpExchange.getRequestMethod() +
                     " " + httpExchange.getRequestURI().getPath());
-            if ("POST".equals(httpExchange.getRequestMethod())){
+            if ("POST".equals(httpExchange.getRequestMethod())) {
                 InputStream inputStream = httpExchange.getRequestBody();
                 Boolean success = handleProduce(inputStream, "customer-account");
                 processRequest(httpExchange, success);
@@ -66,7 +68,7 @@ public class MockProducerServer  {
         httpServer.createContext("/produce/customer-profile", (httpExchange -> {
             LOG.info("REQUEST RECEIVED: " + httpExchange.getRequestMethod() +
                     " " + httpExchange.getRequestURI().getPath());
-            if ("POST".equals(httpExchange.getRequestMethod())){
+            if ("POST".equals(httpExchange.getRequestMethod())) {
                 InputStream inputStream = httpExchange.getRequestBody();
                 Boolean success = handleProduce(inputStream, "customer-profile");
                 processRequest(httpExchange, success);
@@ -78,7 +80,7 @@ public class MockProducerServer  {
         httpServer.createContext("/produce/balance", (httpExchange -> {
             LOG.info("REQUEST RECEIVED: " + httpExchange.getRequestMethod() +
                     " " + httpExchange.getRequestURI().getPath());
-            if ("POST".equals(httpExchange.getRequestMethod())){
+            if ("POST".equals(httpExchange.getRequestMethod())) {
                 InputStream inputStream = httpExchange.getRequestBody();
                 Boolean success = handleProduce(inputStream, "balance");
                 processRequest(httpExchange, success);
@@ -90,7 +92,7 @@ public class MockProducerServer  {
         httpServer.createContext("/produce/customer", (httpExchange -> {
             LOG.info("REQUEST RECEIVED: " + httpExchange.getRequestMethod() +
                     " " + httpExchange.getRequestURI().getPath());
-            if ("POST".equals(httpExchange.getRequestMethod())){
+            if ("POST".equals(httpExchange.getRequestMethod())) {
                 InputStream inputStream = httpExchange.getRequestBody();
                 Boolean success = handleProduce(inputStream, "customer");
                 processRequest(httpExchange, success);
@@ -102,7 +104,7 @@ public class MockProducerServer  {
         httpServer.createContext("/produce/customer-relationship", (httpExchange -> {
             LOG.info("REQUEST RECEIVED: " + httpExchange.getRequestMethod() +
                     " " + httpExchange.getRequestURI().getPath());
-            if ("POST".equals(httpExchange.getRequestMethod())){
+            if ("POST".equals(httpExchange.getRequestMethod())) {
                 InputStream inputStream = httpExchange.getRequestBody();
                 Boolean success = handleProduce(inputStream, "customer-relationship");
                 processRequest(httpExchange, success);
@@ -114,7 +116,7 @@ public class MockProducerServer  {
         httpServer.createContext("/mock", (httpExchange -> {
             LOG.info("REQUEST RECEIVED: " + httpExchange.getRequestMethod() +
                     " " + httpExchange.getRequestURI().getPath());
-            if ("POST".equals(httpExchange.getRequestMethod())){
+            if ("POST".equals(httpExchange.getRequestMethod())) {
                 InputStream inputStream = httpExchange.getRequestBody();
                 String inputStreamString = readInputStreamToString(inputStream);
                 System.out.println(inputStreamString);
@@ -141,24 +143,9 @@ public class MockProducerServer  {
         this.httpServer.start();
     }
 
-    private boolean handleProduce(InputStream inputStream, String dataFlag){
+    private boolean handleProduce(InputStream inputStream, String dataFlag) {
         Gson g = new Gson();
-        switch (dataFlag){
-//            case "account-preference":
-//                LOG.debug("Create Raw Record to produce");
-//                AccountPreference accountPreference = new AccountPreference(
-//                        "1","2");
-//                return mockDataProducer.produceAccountPreference(accountPreference);
-//            case "customer-account":
-//                LOG.debug("Create CustomerAccount object to produce");
-//                CustomerAccount customerAccount = new CustomerAccount(
-//                        "1", "2");
-//                return mockDataProducer.produceCustomerAccount(customerAccount);
-//            case "customer-profile":
-//                LOG.debug("Create CustomerProfile object to produce");
-//                CustomerProfile customerProfile = new CustomerProfile(
-//                        "2", "3");
-//                return mockDataProducer.produceCustomerProfile(customerProfile);
+        switch (dataFlag) {
             case "balance":
                 LOG.debug("Create Balance Object to Produce");
                 Balance balance = g.fromJson(readInputStreamToString(inputStream), Balance.class);
@@ -166,6 +153,7 @@ public class MockProducerServer  {
             case "customer":
                 LOG.debug("Create Balance Object to Produce");
                 Customer customer = g.fromJson(readInputStreamToString(inputStream), Customer.class);
+                System.out.println(customer);
                 return mockDataProducer.produceCustomer(customer);
             case "customer-relationship":
                 LOG.debug("Create CustomerRelationship Object to Produce");

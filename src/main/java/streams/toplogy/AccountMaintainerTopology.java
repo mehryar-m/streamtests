@@ -10,8 +10,10 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
-import org.apache.kafka.streams.kstream.*;
-import org.glassfish.jersey.internal.inject.Custom;
+import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.KTable;
+import org.apache.kafka.streams.kstream.KeyValueMapper;
 
 import java.util.Collections;
 import java.util.Map;
@@ -26,7 +28,7 @@ public class AccountMaintainerTopology {
     private static SpecificAvroSerde<Customer> customerSpecificAvroSerde = new SpecificAvroSerde<>();
     private static SpecificAvroSerde<CustomerRelationship> customerReleationshipSpecificAvroSerde = new SpecificAvroSerde<>();
 
-    public static Topology build(){
+    public static Topology build() {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
         configureSerdes();
 
